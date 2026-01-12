@@ -1,8 +1,5 @@
 package com.car_rental.car_rental.dto;
 
-
-import com.car_rental.car_rental.model.Role;
-
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -26,6 +23,4 @@ public class RegisterRequest {
   @Size(min = 3, max = 999, message = "Password must be at least 3 chacacters")
   @Column(nullable = false)
   private String password;
-
-  private Role role;
 }

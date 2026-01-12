@@ -13,6 +13,7 @@ import com.car_rental.car_rental.dto.LoginRequest;
 import com.car_rental.car_rental.dto.RefreshTokenRequest;
 import com.car_rental.car_rental.dto.RegisterRequest;
 import com.car_rental.car_rental.dto.TokenPair;
+import com.car_rental.car_rental.model.Role;
 import com.car_rental.car_rental.model.User;
 import com.car_rental.car_rental.repository.UserRepository;
 
@@ -39,7 +40,7 @@ public class AuthService {
         .fullName(registerRequest.getFullName())
         .username(registerRequest.getUsername())
         .password(passwordEncoder.encode(registerRequest.getPassword()))
-        .role(registerRequest.getRole())
+        .role(Role.ROLE_USER)
         .build();
 
     userRepository.save(user);
