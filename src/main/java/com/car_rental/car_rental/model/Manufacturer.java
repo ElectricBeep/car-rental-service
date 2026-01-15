@@ -18,6 +18,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "manufacturers")
 public class Manufacturer {
+
+  public Manufacturer(Long id) {
+    this.id = id;
+  }
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
