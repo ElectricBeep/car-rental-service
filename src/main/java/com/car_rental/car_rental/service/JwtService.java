@@ -43,9 +43,18 @@ public class JwtService {
 
   public String generateAccessToken(Authentication authentication) {
     UserDetails userPrinciple = (UserDetails) authentication.getPrincipal();
+    
+    // Extract role from authentication
+    String role = authentication.getAuthorities().stream()
+        .findFirst()
+        .map(Object::toString)
+        .orElse("ROLE_USER");
 
     Date now = new Date();
     Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
+
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("role", role);
 
     return Jwts
         .builder()
@@ -53,6 +62,7 @@ public class JwtService {
         .add("typ", "JWT")
         .and()
         .subject(userPrinciple.getUsername())
+        .claims(claims)
         .issuedAt(now)
         .expiration(expiryDate)
         .signWith(getSignInKey())
@@ -61,12 +71,19 @@ public class JwtService {
 
   public String generateRefreshToken(Authentication authentication) {
     UserDetails userPrinciple = (UserDetails) authentication.getPrincipal();
+    
+    // Extract role from authentication for refresh token too
+    String role = authentication.getAuthorities().stream()
+        .findFirst()
+        .map(Object::toString)
+        .orElse("ROLE_USER");
 
     Date now = new Date();
     Date expiryDate = new Date(now.getTime() + refreshExpirationMs);
 
-    Map<String, String> claims = new HashMap<>();
+    Map<String, Object> claims = new HashMap<>();
     claims.put("tokenType", "refresh");
+    claims.put("role", role);
 
     return Jwts
         .builder()
@@ -120,6 +137,17 @@ public class JwtService {
     return "refresh".equals(claims.get("tokenType"));
   }
 
+  public boolean isAccessToken(String token) {
+    Claims claims = Jwts
+        .parser()
+        .verifyWith(getSignInKey())
+        .build()
+        .parseSignedClaims(token)
+        .getPayload();
+
+    return !"refresh".equals(claims.get("tokenType"));
+  }
+
   public String extractUsernameFromToken(String token) {
     return Jwts
         .parser()
@@ -128,6 +156,17 @@ public class JwtService {
         .parseSignedClaims(token)
         .getPayload()
         .getSubject();
+  }
+
+  public String extractRoleFromToken(String token) {
+    Claims claims = Jwts
+        .parser()
+        .verifyWith(getSignInKey())
+        .build()
+        .parseSignedClaims(token)
+        .getPayload();
+    
+    return claims.get("role", String.class);
   }
 
   private SecretKey getSignInKey() {

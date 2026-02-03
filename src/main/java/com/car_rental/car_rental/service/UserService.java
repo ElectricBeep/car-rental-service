@@ -28,9 +28,6 @@ public class UserService {
   }
 
   public void saveAdminUser(RegisterRequest registerRequest) {
-    System.out.println("-----------------------------------------------" + registerRequest.getFullName());
-    System.out.println("-----------------------------------------------" + registerRequest.getUsername());
-    System.out.println("-----------------------------------------------" + registerRequest.getUsername());
     if (userRepository.existsByUsername(registerRequest.getUsername())) {
       throw new IllegalArgumentException("Username already in user");
     }
@@ -64,5 +61,10 @@ public class UserService {
 
   public void deleteUser(Long id) {
     userRepository.deleteById(id);
+  }
+
+  public User findByUsername(String username) {
+    return userRepository.findByUsername(username)
+        .orElseThrow(() -> new IllegalArgumentException("User not found"));
   }
 }

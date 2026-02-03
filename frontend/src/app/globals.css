@@ -5,6 +5,8 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-primary-background: oklch(51.1% 0.262 276.966);
+  --color-primary-background-hover: oklch(58.5% 0.233 277.117);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -119,6 +121,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

@@ -76,7 +76,9 @@ public class AuthService {
        userDetails.getAuthorities()
     );
 
-    String accessToken = jwtService.generateAccessToken(authenticationToken);
-    return new TokenPair(accessToken, refreshToken);
+    // ✅ FIX: Generate BOTH new access and refresh tokens (true rotation)
+    String newAccessToken = jwtService.generateAccessToken(authenticationToken);
+    String newRefreshToken = jwtService.generateRefreshToken(authenticationToken);
+    return new TokenPair(newAccessToken, newRefreshToken);
   }
 }
