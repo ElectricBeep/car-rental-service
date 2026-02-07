@@ -1,13 +1,22 @@
-import { Navbar } from '@/components/home/navbar'
-import { PagesOverview } from '@/components/pages-overview'
-import { UserSession } from '@/components/user-session'
+import { getServerSession } from "next-auth/next";
 
-export default function Home() {
+import { authOptions } from "@/lib/auth";
+import { Hero } from "@/components/home/hero";
+import { Navbar } from "@/components/home/navbar";
+import { OurServices } from "@/components/home/our-services";
+import { PagesOverview } from "@/components/pages-overview";
+import { UserSession } from "@/components/user-session";
+
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
-      <Navbar />
-      <UserSession />
-      <PagesOverview />
+      <Navbar session={session} />
+      <Hero session={session} />
+      <OurServices />
+      {/* <UserSession />
+      <PagesOverview /> */}
     </>
   )
 }

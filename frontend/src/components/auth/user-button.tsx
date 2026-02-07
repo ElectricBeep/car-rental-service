@@ -1,11 +1,13 @@
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth/next";
+
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { Session } from "next-auth";
 
-export const UserButton = async () => {
-  const session = await getServerSession(authOptions);
+interface UserButtonProps {
+  session: Session | null;
+};
 
+export const UserButton = async ({ session }: UserButtonProps) => {
   if (!session) {
     return (
       <div className="flex items-center gap-x-4">
