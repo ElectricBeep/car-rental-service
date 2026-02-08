@@ -6,6 +6,7 @@ import { Navbar } from "@/components/home/navbar";
 import { OurServices } from "@/components/home/our-services";
 import { PagesOverview } from "@/components/pages-overview";
 import { UserSession } from "@/components/user-session";
+import { Partners } from "@/components/home/partners";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -15,6 +16,7 @@ export default async function Home() {
       <Navbar session={session} />
       <Hero session={session} />
       <OurServices />
+      <Partners />
       {/* <UserSession />
       <PagesOverview /> */}
     </>
