@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { loginFormSchema } from "@/lib/validations";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { TextField } from "../forms/text-field";
 import { SubmitField } from "../forms/submit-field";
 
@@ -28,10 +28,10 @@ export const LoginForm = () => {
   })
 
   const onSubmitHandler = handleSubmit((data) => {
-    signIn('credentials', {
+    signIn("credentials", {
       username: data.username,
       password: data.password,
-      callbackUrl: '/'
+      callbackUrl: "/dashboard"
     })
   })
 
@@ -45,7 +45,7 @@ export const LoginForm = () => {
         <div className="space-y-4">
           <TextField
             type="text"
-            register={register('username')}
+            register={register("username")}
             formState={formState}
             label="Username"
             placeholder="Email address or username"
@@ -53,7 +53,7 @@ export const LoginForm = () => {
 
           <TextField
             type="password"
-            register={register('password', { required: true })}
+            register={register("password", { required: true })}
             formState={formState}
             label="Password"
             placeholder="Enter your password"

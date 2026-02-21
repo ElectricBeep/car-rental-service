@@ -1,13 +1,18 @@
+"use client";
 
-import { Button } from "../ui/button";
-import Link from "next/link";
 import { Session } from "next-auth";
+import Link from "next/link";
+import { useUserRole } from "@/hooks/useUserRole";
+import { useRouter } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
+import { LogoutButton } from "./logout-button";
 
 interface UserButtonProps {
   session: Session | null;
 };
 
-export const UserButton = async ({ session }: UserButtonProps) => {
+export const UserButton = ({ session }: UserButtonProps) => {
   if (!session) {
     return (
       <div className="flex items-center gap-x-4">
@@ -25,9 +30,26 @@ export const UserButton = async ({ session }: UserButtonProps) => {
     );
   }
 
-  return <Button asChild className="bg-primary-background hover:bg-primary-background-hover text-white hover:text-white transition">
-    <Link href="/dashboard">
-      Dashboard
-    </Link>
-  </Button>;
+  const { isAdmin } = useUserRole();
+  const router = useRouter();
+
+  const handleDashboardClick = () => {
+    if (isAdmin) {
+      router.push("/admin");
+    } else {
+      router.push("/dashboard");
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-x-4">
+      <Button
+        onClick={handleDashboardClick}
+        className="bg-primary-background hover:bg-primary-background-hover text-white hover:text-white transition cursor-pointer"
+      >
+        Dashboard
+      </Button>
+      <LogoutButton />
+    </div>
+  );
 };

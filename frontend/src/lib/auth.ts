@@ -75,7 +75,7 @@ const authOptions: AuthOptions = {
       name: 'credentials',
       credentials: {
         username: {
-          label: 'Email',
+          label: 'Username',
           type: 'text'
         },
         password: { label: 'Password', type: 'password' }
