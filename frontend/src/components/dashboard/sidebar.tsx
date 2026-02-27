@@ -20,7 +20,7 @@ export const Sidebar = () => {
 
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto">
-      <div className="px-4 flex justify-center justify-start">
+      <div className="px-4 flex justify-start">
         <Link href="/" className="text-violet-500 font-bold flex items-center gap-x-4">
           <Image
             height={80}
