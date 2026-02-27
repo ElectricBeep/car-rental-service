@@ -10,9 +10,10 @@ import { LogoutButton } from "./logout-button";
 
 interface UserButtonProps {
   session: Session | null;
+  showDashboardButton?: boolean;
 };
 
-export const UserButton = ({ session }: UserButtonProps) => {
+export const UserButton = ({ session, showDashboardButton = true }: UserButtonProps) => {
   if (!session) {
     return (
       <div className="flex items-center gap-x-4">
@@ -43,12 +44,14 @@ export const UserButton = ({ session }: UserButtonProps) => {
 
   return (
     <div className="flex items-center gap-x-4">
-      <Button
-        onClick={handleDashboardClick}
-        className="bg-primary-background hover:bg-primary-background-hover text-white hover:text-white transition cursor-pointer"
-      >
-        Dashboard
-      </Button>
+      {showDashboardButton && (
+        <Button
+          onClick={handleDashboardClick}
+          className="bg-primary-background hover:bg-primary-background-hover text-white hover:text-white transition cursor-pointer"
+        >
+          Dashboard
+        </Button>
+      )}
       <LogoutButton />
     </div>
   );

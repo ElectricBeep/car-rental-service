@@ -15,11 +15,11 @@ export default function RoleProvider({
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isAdmin && pathname !== "/admin") {
+    if (isAdmin && !pathname.startsWith("/admin")) {
       router.replace("/admin");
-    } else if (isManager && pathname !== "/manager") {
+    } else if (isManager && !pathname.startsWith("/manager")) {
       router.replace("/manager");
-    } else if (isUser && pathname !== "/user") {
+    } else if (isUser && !pathname.startsWith("/user")) {
       router.replace("/user");
     }
   }, [isAdmin, isManager, isUser, pathname, router]);
