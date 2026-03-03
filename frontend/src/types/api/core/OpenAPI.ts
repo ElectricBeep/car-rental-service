@@ -16,9 +16,9 @@ export type OpenAPIConfig = {
 }
 
 export const OpenAPI: OpenAPIConfig = {
-  BASE: '',
+  BASE: (typeof window !== 'undefined' ? (window as any).BACKEND_URL : process.env.BACKEND_URL) || 'http://localhost:8081/api',
   VERSION: '0.0.0',
-  WITH_CREDENTIALS: false,
+  WITH_CREDENTIALS: true,
   CREDENTIALS: 'include',
   TOKEN: undefined,
   USERNAME: undefined,

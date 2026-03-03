@@ -93,7 +93,7 @@ export const LoginForm = () => {
                     asChild
                     className="px-0 font-normal"
                   >
-                    <Link href="/auth/reset">
+                    <Link href="/reset">
                       Forgot password?
                     </Link>
                   </Button>
@@ -109,8 +109,19 @@ export const LoginForm = () => {
             Login
           </Button>
         </form>
+        <div className="flex justify-center mt-4">
+          <Button
+            size="sm"
+            variant="link"
+            asChild
+            className="px-0 font-normal"
+          >
+            <Link href="/register">
+              Don't have an account? Register here
+            </Link>
+          </Button>
+        </div>
       </Form>
     </CardWrapper>
   );
 };
-

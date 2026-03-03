@@ -7,14 +7,15 @@ const loginFormSchema = z.object({
 
 const registerFormSchema = z
   .object({
-    username: z.string().min(6),
+    fullName: z.string().min(6),
+    username: z.string().min(6).max(10),
     password: z.string().min(6),
     passwordRetype: z.string().min(6)
   })
   .refine((data) => data.password === data.passwordRetype, {
     message: 'Passwords are not matching',
     path: ['passwordRetype']
-  })
+  });
 
 const profileFormSchema = z.object({
   firstName: z.string().optional(),

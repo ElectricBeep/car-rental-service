@@ -1,5 +1,7 @@
 package com.car_rental.car_rental.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +25,14 @@ public class AuthController {
 
   @PostMapping("/register")
   public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request) {
-    authService.registerUser(request);
-    return ResponseEntity.ok("User registrated successfully");
+    try {
+      authService.registerUser(request);
+      return ResponseEntity.ok(Map.of("message", "User registered successfully"));
+    } catch (IllegalArgumentException e) {
+      return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+    } catch (Exception e) {
+      return ResponseEntity.status(500).body(Map.of("error", "Registration failed: " + e.getMessage()));
+    }
   }
 
   @PostMapping("/login")
@@ -35,7 +43,6 @@ public class AuthController {
 
   @PostMapping("/refresh-token")
   public ResponseEntity<?> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
-    System.out.println("------------------------------------------------------------------------");
     TokenPair tokenPair = authService.refreshToken(request);
     return ResponseEntity.ok(tokenPair);
   }

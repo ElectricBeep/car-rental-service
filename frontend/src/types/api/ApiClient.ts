@@ -15,7 +15,7 @@ type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest
 export class ApiClient {
   public readonly schema: SchemaService
   public readonly token: TokenService
-  // public readonly users: UsersService
+  public readonly users: UsersService
 
   public readonly request: BaseHttpRequest
 
@@ -37,6 +37,6 @@ export class ApiClient {
 
     this.schema = new SchemaService(this.request)
     this.token = new TokenService(this.request)
-    // this.users = new UsersService(this.request)
+    this.users = new UsersService(this.request)
   }
 }

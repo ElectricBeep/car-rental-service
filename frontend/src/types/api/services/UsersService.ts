@@ -1,95 +1,24 @@
-// import type { PatchedUserCurrent } from '../models/PatchedUserCurrent'
-// import type { UserChangePassword } from '../models/UserChangePassword'
-// import type { UserCreate } from '../models/UserCreate'
-// import type { UserCurrent } from '../models/UserCurrent'
-
 import type { CancelablePromise } from '../core/CancelablePromise'
 import type { BaseHttpRequest } from '../core/BaseHttpRequest'
 
 export class UsersService {
-  // constructor(public readonly httpRequest: BaseHttpRequest) { }
+  constructor(public readonly httpRequest: BaseHttpRequest) { }
 
-  // /**
-  //  * @param requestBody
-  //  * @returns UserCreate
-  //  * @throws ApiError
-  //  */
-  // public usersCreate(requestBody: UserCreate): CancelablePromise<UserCreate> {
-  //   return this.httpRequest.request({
-  //     method: 'POST',
-  //     url: '/users',
-  //     body: requestBody,
-  //     mediaType: 'application/json'
-  //   })
-  // }
-
-  // /**
-  //  * @param requestBody
-  //  * @returns void
-  //  * @throws ApiError
-  //  */
-  // public usersChangePasswordCreate(
-  //   requestBody: UserChangePassword
-  // ): CancelablePromise<void> {
-  //   return this.httpRequest.request({
-  //     method: 'POST',
-  //     url: '/users/change-password',
-  //     body: requestBody,
-  //     mediaType: 'application/json'
-  //   })
-  // }
-
-  // /**
-  //  * @returns void
-  //  * @throws ApiError
-  //  */
-  // public usersDeleteAccountDestroy(): CancelablePromise<void> {
-  //   return this.httpRequest.request({
-  //     method: 'DELETE',
-  //     url: '/users/delete-account'
-  //   })
-  // }
-
-  // /**
-  //  * @returns UserCurrent
-  //  * @throws ApiError
-  //  */
-  // public usersMeRetrieve(): CancelablePromise<UserCurrent> {
-  //   return this.httpRequest.request({
-  //     method: 'GET',
-  //     url: '/users/me'
-  //   })
-  // }
-
-  // /**
-  //  * @param requestBody
-  //  * @returns UserCurrent
-  //  * @throws ApiError
-  //  */
-  // public usersMeUpdate(
-  //   requestBody: UserCurrent
-  // ): CancelablePromise<UserCurrent> {
-  //   return this.httpRequest.request({
-  //     method: 'PUT',
-  //     url: '/users/me',
-  //     body: requestBody,
-  //     mediaType: 'application/json'
-  //   })
-  // }
-
-  // /**
-  //  * @param requestBody
-  //  * @returns UserCurrent
-  //  * @throws ApiError
-  //  */
-  // public usersMePartialUpdate(
-  //   requestBody?: PatchedUserCurrent
-  // ): CancelablePromise<UserCurrent> {
-  //   return this.httpRequest.request({
-  //     method: 'PATCH',
-  //     url: '/users/me',
-  //     body: requestBody,
-  //     mediaType: 'application/json'
-  //   })
-  // }
+  /**
+   * @param requestBody
+   * @returns { message: string } | { error: string }
+   * @throws ApiError
+   */
+  public usersCreate(requestBody: {
+    fullName: string;
+    username: string;
+    password: string;
+  }): CancelablePromise<{ message?: string; error?: string }> {
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/auth/register',
+      body: requestBody,
+      mediaType: 'application/json',
+    })
+  }
 }
