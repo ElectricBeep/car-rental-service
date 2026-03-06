@@ -48,10 +48,19 @@ const changePasswordFormSchema = z
     path: ['passwordRetype']
   })
 
+const createManufacturerSchema = z
+  .object({
+    name: z.string().min(3, {
+      message: "Name is required!",
+    }),
+    description: z.string().optional(),
+  });
+
 export {
   changePasswordFormSchema,
   deleteAccountFormSchema,
   loginFormSchema,
   profileFormSchema,
-  registerFormSchema
+  registerFormSchema,
+  createManufacturerSchema
 }

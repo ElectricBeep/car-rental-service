@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { AuthProvider } from "@/providers/auth-provider";
 import { ThemeProvider } from "@/providers/theme-priovider";
+import ModalProvider from "@/providers/modal-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
               {children}
             </AuthProvider>
             <Toaster />
+            <ModalProvider />
           </Suspense>
         </ThemeProvider>
       </body>

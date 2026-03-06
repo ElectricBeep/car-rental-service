@@ -2,7 +2,7 @@
 
 import { Session } from "next-auth";
 import Link from "next/link";
-import { useUserRole } from "@/hooks/useUserRole";
+import { useUserRole } from "@/hooks/use-user-role";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";

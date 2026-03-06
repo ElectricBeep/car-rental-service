@@ -9,6 +9,7 @@ import { FetchHttpRequest } from './core/FetchHttpRequest'
 import { SchemaService } from './services/SchemaService'
 import { TokenService } from './services/TokenService'
 import { UsersService } from './services/UsersService'
+import { ManufacturersService } from './services/ManufacturersServices'
 
 type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest
 
@@ -16,6 +17,7 @@ export class ApiClient {
   public readonly schema: SchemaService
   public readonly token: TokenService
   public readonly users: UsersService
+  public readonly manufacturers: ManufacturersService
 
   public readonly request: BaseHttpRequest
 
@@ -38,5 +40,6 @@ export class ApiClient {
     this.schema = new SchemaService(this.request)
     this.token = new TokenService(this.request)
     this.users = new UsersService(this.request)
+    this.manufacturers = new ManufacturersService(this.request)
   }
 }

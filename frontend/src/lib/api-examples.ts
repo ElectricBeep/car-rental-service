@@ -3,7 +3,7 @@
 
 import { getApiClient } from './api'
 import { useSession } from 'next-auth/react'
-import { useUserRole } from '../hooks/useUserRole'
+import { useUserRole } from '../hooks/use-user-role'
 
 // Example 1: Using generated API client (Token and Schema services)
 export async function authenticateUser(username: string, password: string) {

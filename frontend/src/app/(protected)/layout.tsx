@@ -20,7 +20,7 @@ export default async function ProtectedLayout({
           <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">
             <Sidebar />
           </div>
-          <main className="md:pl-80">
+          <main className="md:pl-80 w-full">
             {children}
           </main>
         </div>

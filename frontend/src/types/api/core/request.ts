@@ -280,8 +280,10 @@ export const catchErrorCodes = (
     ...options.errors
   }
 
+
   const error = errors[result.status]
   if (error) {
+    console.log("error-------", error)
     throw new ApiError(options, result, error)
   }
 

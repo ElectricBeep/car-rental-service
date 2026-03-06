@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useUserRole } from '@/hooks/useUserRole'
+import { useUserRole } from '@/hooks/use-user-role'
 import {
   authenticateUser,
   makeAuthenticatedRequest,

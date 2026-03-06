@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-import { useUserRole } from "@/hooks/useUserRole";
+import { useUserRole } from "@/hooks/use-user-role";
 
 export default function RoleProvider({
   children,

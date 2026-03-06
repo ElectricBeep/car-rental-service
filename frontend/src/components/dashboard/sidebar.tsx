@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CaseUpper } from "lucide-react";
 
-import { useUserRole } from "@/hooks/useUserRole";
+import { useUserRole } from "@/hooks/use-user-role";
 import { SidebarItem } from "./navbar-item";
 
 export const Sidebar = () => {
@@ -30,7 +30,7 @@ export const Sidebar = () => {
           />
         </Link>
       </div>
-      <div className="flex flex-col w-full mt-2">
+      <div className="flex flex-col w-full">
         {navItems.map((item) => (
           <SidebarItem key={item.label} href={item.href}>
             <div className="flex items-center gap-x-2 p-4">
