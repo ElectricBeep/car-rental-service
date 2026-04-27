@@ -27,10 +27,14 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { createManufacturerSchema } from "@/lib/validations";
 import { toast } from "sonner";
+import { useState } from "react";
+import { getApiClient } from "@/lib/api";
+import { useSession } from "next-auth/react";
 
 export const CreateManufacturerModal = () => {
   const { isOpen, onClose, type } = useModal();
   const router = useRouter();
+  const session = useSession();
 
   const isModalOpen = isOpen && type === "createManufacturer";
 
@@ -50,10 +54,19 @@ export const CreateManufacturerModal = () => {
 
   const onSubmit = async (values: z.infer<typeof createManufacturerSchema>) => {
     try {
+      const apiClient = await getApiClient(session.data);
+      const response = await apiClient.manufacturers.createManufacturer(values);
 
-
-      toast("Manufacturer was created successfully.");
-    } catch {
+      if (response && "id" in response) {
+        toast("Manufacturer was created successfully.");
+        form.reset();
+        router.refresh();
+        onClose();
+      } else {
+        toast("Failed to create manufacturer.");
+      }
+    } catch (error) {
+      console.error("Error creating manufacturer:", error);
       toast("There was a problem with your request.");
     }
   };

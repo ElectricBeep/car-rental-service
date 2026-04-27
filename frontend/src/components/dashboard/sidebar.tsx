@@ -12,7 +12,7 @@ export const Sidebar = () => {
 
   const navItems = [
     {
-      label: "Brands",
+      label: "Manufacturers",
       href: "/admin/brands",
       icon: <CaseUpper size={22} />,
     },

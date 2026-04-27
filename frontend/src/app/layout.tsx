@@ -37,9 +37,9 @@ export default function RootLayout({
           <Suspense fallback={<div>Loading...</div>}>
             <AuthProvider>
               {children}
+              <ModalProvider />
             </AuthProvider>
             <Toaster />
-            <ModalProvider />
           </Suspense>
         </ThemeProvider>
       </body>
