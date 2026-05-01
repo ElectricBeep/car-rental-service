@@ -61,6 +61,7 @@ export const CreateManufacturerModal = () => {
         toast("Manufacturer was created successfully.");
         form.reset();
         router.refresh();
+        router.push(`/admin/brands/${response.id}`);
         onClose();
       } else {
         toast("Failed to create manufacturer.");
@@ -125,7 +126,7 @@ export const CreateManufacturerModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="px-6 py-4">
+            <DialogFooter className="py-4">
               <Button
                 disabled={isLoading}
                 className="text-white bg-violet-500 hover:bg-violet-400 transition">

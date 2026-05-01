@@ -26,6 +26,7 @@ export const Sidebar = () => {
             height={80}
             width={80}
             src="/logo.png"
+            loading="eager"
             alt="logo"
           />
         </Link>
