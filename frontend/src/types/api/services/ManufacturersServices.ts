@@ -13,6 +13,14 @@ export class ManufacturersService {
     })
   }
 
+  public getManufacturer(id: string): CancelablePromise<Manufacturer> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: `/manufacturers/${id}`,
+      mediaType: 'application/json',
+    })
+  }
+
   public createManufacturer(requestBody: Omit<Manufacturer, 'id'>): CancelablePromise<Manufacturer> {
     return this.httpRequest.request({
       method: 'POST',
