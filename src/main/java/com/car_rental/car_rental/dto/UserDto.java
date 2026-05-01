@@ -17,5 +17,7 @@ public class UserDto extends BaseDto {
    @Size(min = 3, max = 10, message = "Username must be between 3 and 10 characters")
   private String username;
 
+  private String email;
+
   private Role role;
 }

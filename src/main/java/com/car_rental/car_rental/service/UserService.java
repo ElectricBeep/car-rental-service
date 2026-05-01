@@ -29,34 +29,42 @@ public class UserService {
 
   public void saveAdminUser(RegisterRequest registerRequest) {
     if (userRepository.existsByUsername(registerRequest.getUsername())) {
-      throw new IllegalArgumentException("Username already in user");
+      throw new IllegalArgumentException("Username already in use");
+    }
+    if (userRepository.existsByEmail(registerRequest.getEmail())) {
+      throw new IllegalArgumentException("Email already in use");
     }
 
     User user = User
         .builder()
         .fullName(registerRequest.getFullName())
         .username(registerRequest.getUsername())
+        .email(registerRequest.getEmail())
         .password(passwordEncoder.encode(registerRequest.getPassword()))
         .role(Role.ROLE_ADMIN)
         .build();
 
-    userRepository.save(user);    
+    userRepository.save(user);
   }
 
   public void saveManagerUser(RegisterRequest registerRequest) {
     if (userRepository.existsByUsername(registerRequest.getUsername())) {
-      throw new IllegalArgumentException("Username already in user");
+      throw new IllegalArgumentException("Username already in use");
+    }
+    if (userRepository.existsByEmail(registerRequest.getEmail())) {
+      throw new IllegalArgumentException("Email already in use");
     }
 
     User user = User
         .builder()
         .fullName(registerRequest.getFullName())
         .username(registerRequest.getUsername())
+        .email(registerRequest.getEmail())
         .password(passwordEncoder.encode(registerRequest.getPassword()))
         .role(Role.ROLE_MANAGER)
         .build();
 
-    userRepository.save(user);    
+    userRepository.save(user);
   }
 
   public void deleteUser(Long id) {

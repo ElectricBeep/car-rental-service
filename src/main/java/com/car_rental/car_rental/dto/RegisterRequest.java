@@ -1,6 +1,7 @@
 package com.car_rental.car_rental.dto;
 
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,10 @@ public class RegisterRequest {
   @Size(min = 3, max = 10, message = "Username must be between 3 and 10 characters")
   @Column(nullable = false, unique = true)
   private String username;
+
+  @Email(message = "Email must be valid")
+  @Column(nullable = false, unique = true)
+  private String email;
 
   @Size(min = 3, max = 999, message = "Password must be at least 3 chacacters")
   @Column(nullable = false)

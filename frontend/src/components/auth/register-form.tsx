@@ -25,6 +25,7 @@ export const RegisterForm = () => {
     defaultValues: {
       fullName: "",
       username: "",
+      email: "",
       password: "",
       passwordRetype: "",
     },
@@ -39,6 +40,7 @@ export const RegisterForm = () => {
       const requestData = {
         fullName: values.fullName,
         username: values.username,
+        email: values.email,
         password: values.password
       };
 
@@ -145,6 +147,24 @@ export const RegisterForm = () => {
                           {...field}
                           placeholder="Enter your username"
                           type="text"
+                          disabled={isLoading}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }: { field: any }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Enter your email"
+                          type="email"
                           disabled={isLoading}
                         />
                       </FormControl>

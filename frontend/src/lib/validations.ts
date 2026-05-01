@@ -9,6 +9,7 @@ const registerFormSchema = z
   .object({
     fullName: z.string().min(6),
     username: z.string().min(6).max(10),
+    email: z.string().email({ message: "Enter a valid email address" }),
     password: z.string().min(6),
     passwordRetype: z.string().min(6)
   })

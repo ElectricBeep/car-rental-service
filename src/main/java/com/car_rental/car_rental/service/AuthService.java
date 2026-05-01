@@ -32,13 +32,17 @@ public class AuthService {
   @Transactional
   public void registerUser(RegisterRequest registerRequest) {
     if (userRepository.existsByUsername(registerRequest.getUsername())) {
-      throw new IllegalArgumentException("Username already in user");
+      throw new IllegalArgumentException("Username already in use");
+    }
+    if (userRepository.existsByEmail(registerRequest.getEmail())) {
+      throw new IllegalArgumentException("Email already in use");
     }
 
     User user = User
         .builder()
         .fullName(registerRequest.getFullName())
         .username(registerRequest.getUsername())
+        .email(registerRequest.getEmail())
         .password(passwordEncoder.encode(registerRequest.getPassword()))
         .role(Role.ROLE_USER)
         .build();
