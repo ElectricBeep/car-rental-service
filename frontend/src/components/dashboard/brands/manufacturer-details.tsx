@@ -4,6 +4,7 @@ import { Manufacturer } from "@/types/api/models/Manufacturer";
 import { IconBadge } from "@/components/dashboard/icon-badge";
 import { ManufacturerActions } from "./manufacturer-actions";
 import ManufacturerNameForm from "./forms/manufacturer-name-form";
+import ManufacturerDescriptionForm from "./forms/manufacturer-description-form";
 
 interface ManufacturerDetailsProps {
   data: Manufacturer;
@@ -23,6 +24,7 @@ export const ManufacturerDetails = ({ data }: ManufacturerDetailsProps) => {
             <h2 className="text-xl">Manufacturer details (<span className="text-violet-500 font-semibold">{data.id}</span>)</h2>
           </div>
           <ManufacturerNameForm initialData={data} dataId={data.id} />
+          <ManufacturerDescriptionForm initialData={data} dataId={data.id} />
         </div>
       </div>
     </div>

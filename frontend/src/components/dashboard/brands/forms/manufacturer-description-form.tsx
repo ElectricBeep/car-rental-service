@@ -17,25 +17,25 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { getApiClient } from "@/lib/api";
 
-interface ManufacturerNameFormProps {
+interface ManufacturerDescriptionFormProps {
   initialData: Manufacturer;
   dataId: string | number;
 }
 
 const formSchema = z.object({
-  name: z.string().min(3, {
-    message: "Name is required!",
+  description: z.string().min(3, {
+    message: "Description has to be at least 3 characters!",
   }),
 });
 
-const ManufacturerNameForm = ({
+const ManufacturerDescriptionForm = ({
   initialData,
   dataId,
-}: ManufacturerNameFormProps) => {
+}: ManufacturerDescriptionFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const session = useSession();
@@ -47,7 +47,7 @@ const ManufacturerNameForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: initialData.name,
+      description: initialData.description ?? "",
     },
   });
 
@@ -56,12 +56,12 @@ const ManufacturerNameForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const apiClient = await getApiClient(session.data);
-      const updatedData: Manufacturer = { ...initialData, name: values.name };
+      const updatedData: Manufacturer = { ...initialData, description: values.description };
       const response = await apiClient.manufacturers.updateManufacturer(updatedData);
 
       if (response && "id" in response) {
         router.refresh();
-        toast("Manufacturer name was updated successfully.");
+        toast("Manufacturer description was updated successfully.");
         toggleEdit();
         router.refresh();
       } else {
@@ -76,7 +76,7 @@ const ManufacturerNameForm = ({
   return (
     <div className="mt-6 border bg-gray-100 dark:bg-gray-800 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        <h3 className="text-violet-500">Name</h3>
+        <h3 className="text-violet-500">Description</h3>
         <Button
           variant="ghost"
           onClick={toggleEdit}
@@ -85,12 +85,12 @@ const ManufacturerNameForm = ({
           {!isEditing && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit name
+              Edit description
             </>
           )}
         </Button>
       </div>
-      {!isEditing && <p className="text-sm mt-2">{initialData?.name}</p>}
+      {!isEditing && <p className="text-sm mt-2">{initialData?.description}</p>}
       {isEditing && (
         <Form {...form}>
           <form
@@ -98,14 +98,15 @@ const ManufacturerNameForm = ({
             className="space-y-4 mt-4">
             <FormField
               control={form.control}
-              name="name"
+              name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
+                    <Textarea
                       className="bg-white"
                       disabled={isSubmitting}
-                      placeholder="Enter name"
+                      placeholder="Enter description"
+                      rows={5}
                       {...field}
                     />
                   </FormControl>
@@ -128,4 +129,4 @@ const ManufacturerNameForm = ({
   );
 };
 
-export default ManufacturerNameForm;
+export default ManufacturerDescriptionForm;
