@@ -3,9 +3,11 @@ package com.car_rental.car_rental.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class VehicleModelDto {
+@EqualsAndHashCode(callSuper = false)
+public class VehicleModelDto extends BaseDto {
   private Long id;
 
   @NotBlank(message = "Name is required")

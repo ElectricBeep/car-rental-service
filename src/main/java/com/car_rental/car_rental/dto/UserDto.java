@@ -4,9 +4,11 @@ import com.car_rental.car_rental.model.Role;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class UserDto {
+@EqualsAndHashCode(callSuper = false)
+public class UserDto extends BaseDto {
   private Long id;
 
   @Size(min = 3, max = 50, message = "Full name must be between 3 and 50 characters")
