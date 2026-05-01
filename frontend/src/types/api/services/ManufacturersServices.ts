@@ -30,6 +30,14 @@ export class ManufacturersService {
     })
   }
 
+  public deleteManufacturer(id: number | string) {
+    return this.httpRequest.request({
+      method: 'DELETE',
+      url: `/manufacturers/${id}`,
+      mediaType: 'application/json',
+    })
+  }
+
   public uploadManufacturerImage(id: number, file: File): CancelablePromise<Manufacturer> {
     const formData = new FormData();
     formData.append('file', file);
