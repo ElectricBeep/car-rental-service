@@ -71,6 +71,8 @@ public class ManufacturerController {
     if (manufacturer.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
+
+    deleteImageIfPresent(manufacturer.get());
     manufacturerService.deleteManufacturer(id);
     return ResponseEntity.noContent().build();
   }
@@ -98,14 +100,18 @@ public class ManufacturerController {
     if (manufacturer.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
-    if (manufacturer.get().getImage() != null && !manufacturer.get().getImage().isEmpty()) {
-      boolean deleted = imageUploadService.deleteImage(manufacturer.get().getImage());
+
+    deleteImageIfPresent(manufacturer.get());
+    return ResponseEntity.ok(manufacturerMapper.toDto(manufacturer.get()));
+  }
+
+  private void deleteImageIfPresent(Manufacturer manufacturer) {
+    if (manufacturer.getImage() != null && !manufacturer.getImage().isEmpty()) {
+      boolean deleted = imageUploadService.deleteImage(manufacturer.getImage());
       if (deleted) {
-        manufacturer.get().setImage(null);
-        manufacturerService.saveManufacturer(manufacturer.get());
+        manufacturer.setImage(null);
+        manufacturerService.saveManufacturer(manufacturer);
       }
     }
-
-    return ResponseEntity.ok(manufacturerMapper.toDto(manufacturer.get()));
   }
 }
