@@ -20,4 +20,7 @@ public class UserDto extends BaseDto {
   private String email;
 
   private Role role;
+
+  @Size(max = 255, message = "Image URL must not exceed 255 characters")
+  private String image;
 }

@@ -45,6 +45,8 @@ public class User extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  private String image;
+
   public User(
       @NotBlank(message = "Full name is required") @Size(min = 3, max = 50, message = "Full name must be between 3 and 50 characters") String fullName,
       @NotBlank(message = "Username is required") @Size(min = 3, max = 10, message = "Username must be between 3 and 10 characters") String username,
