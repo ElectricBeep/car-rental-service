@@ -22,6 +22,7 @@ export const CardWrapper = ({ children, headerLabel, backHref, backLabel }: Card
               alt="logo"
               height={120}
               width={120}
+              loading="eager"
             />
           </Link>
           <p className="text-muted-foreground text-sm">

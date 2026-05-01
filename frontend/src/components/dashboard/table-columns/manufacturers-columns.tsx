@@ -19,7 +19,7 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
           alt={row.original.name}
           height={40}
           width={40}
-          className="rounded-full object-contain"
+          className="rounded-full object-cover h-10 w-10"
         />
       );
     },

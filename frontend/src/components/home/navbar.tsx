@@ -16,6 +16,7 @@ export const Navbar = ({ session }: NavbarProps) => {
         width={100}
         src="/logo.png"
         alt="logo"
+        loading="eager"
       />
       <div className="flex items-center gap-x-4">
         <UserButton session={session} />
