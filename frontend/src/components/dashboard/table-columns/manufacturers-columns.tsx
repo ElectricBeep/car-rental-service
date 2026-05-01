@@ -13,7 +13,7 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
   {
     accessorKey: "image",
     header: "Logo",
-    size: 20,
+    size: 50,
     cell: ({ row }) => {
       return (
         <Image
@@ -29,7 +29,7 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
   {
     accessorKey: "id",
     header: "Id",
-    size: 120,
+    size: 100,
     filterFn: (row, columnId, filterValue) =>
       String(row.getValue(columnId)).includes(String(filterValue)),
     cell: ({ row }) => {
@@ -55,7 +55,7 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
   {
     accessorKey: "description",
     header: "Description",
-    size: 800,
+    size: 760,
     cell: ({ row }) => {
       return (
         <>
