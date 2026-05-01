@@ -1,5 +1,6 @@
 import { getToken } from 'next-auth/jwt'
 import type { NextRequest } from 'next/server'
+import { CustomRole } from '@/types/api/models/CustomRole'
 
 function decodeToken(token: string): {
   token_type: string
@@ -21,7 +22,7 @@ function decodeToken(token: string): {
 
 export async function checkRole(
   request: NextRequest,
-  requiredRoles: string[] = []
+  requiredRoles: CustomRole[] = []
 ) {
   const token = await getToken({
     req: request,
@@ -56,7 +57,7 @@ export const requireAuth = (request: NextRequest) =>
   checkRole(request, [])
 
 export const requireAdmin = (request: NextRequest) =>
-  checkRole(request, ['ROLE_ADMIN'])
+  checkRole(request, [CustomRole.ROLE_ADMIN])
 
 export const requireUser = (request: NextRequest) =>
-  checkRole(request, ['ROLE_USER', 'ROLE_ADMIN']) // Admin can access user routes
+  checkRole(request, [CustomRole.ROLE_USER, CustomRole.ROLE_ADMIN])

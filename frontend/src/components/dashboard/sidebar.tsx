@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CaseUpper } from "lucide-react";
+import { CaseUpper, User } from "lucide-react";
 
 import { useUserRole } from "@/hooks/use-user-role";
 import { SidebarItem } from "./navbar-item";
@@ -11,6 +11,11 @@ export const Sidebar = () => {
   const { isAdmin, isManager, isUser } = useUserRole();
 
   const navItems = [
+    {
+      label: "Users",
+      href: "/admin/users",
+      icon: <User size={22} />,
+    },
     {
       label: "Manufacturers",
       href: "/admin/brands",
