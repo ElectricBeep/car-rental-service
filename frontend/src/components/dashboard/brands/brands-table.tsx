@@ -96,10 +96,13 @@ export const BrandsTable = ({ columns, data }: BrandsTableProps) => {
         <Table>
           <TableHeader className="bg-violet-500">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="hover:bg-transparent">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead className="text-white" key={header.id}>
+                    <TableHead
+                      className="text-white"
+                      key={header.id}
+                      style={{ width: header.column.getSize() }}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -119,7 +122,10 @@ export const BrandsTable = ({ columns, data }: BrandsTableProps) => {
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="border">
+                    <TableCell
+                      key={cell.id}
+                      className="border"
+                      style={{ width: cell.column.getSize() }}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

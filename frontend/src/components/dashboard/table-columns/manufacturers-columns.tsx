@@ -1,11 +1,13 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ChevronRight, Fingerprint } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 
+import { ArrowUpDown, ChevronRight, Fingerprint } from "lucide-react";
 import { Manufacturer } from "@/types/api/models/Manufacturer";
+import { formatDate } from "@/lib/utils";
 
 export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
   {
@@ -26,9 +28,10 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
   },
   {
     accessorKey: "id",
-    accessorFn: (row) => row.id,
     header: "Id",
     size: 120,
+    filterFn: (row, columnId, filterValue) =>
+      String(row.getValue(columnId)).includes(String(filterValue)),
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-x-2">
@@ -40,14 +43,14 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
   },
   {
     accessorKey: "name",
-    accessorFn: (row) => row.name,
-    header: "Name",
+    header: ({ column }) => (
+      <Button className="cursor-pointer" variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Name
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     size: 200,
-    cell: ({ row }) => {
-      return (
-        <p>{row.original.name}</p>
-      );
-    },
+    cell: ({ row }) => <p>{row.original.name}</p>,
   },
   {
     accessorKey: "description",
@@ -60,6 +63,27 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
             <p>{row.original.description}</p>
           ) : (
             <p className="text-muted-foreground italic">No description</p>
+          )}
+        </>
+      );
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (
+      <Button className="cursor-pointer" variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Created
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    size: 200,
+    cell: ({ row }) => {
+      return (
+        <>
+          {row.original.createdAt ? (
+            <p>{formatDate(row.original.createdAt)}</p>
+          ) : (
+            <p className="text-muted-foreground italic">No date</p>
           )}
         </>
       );
