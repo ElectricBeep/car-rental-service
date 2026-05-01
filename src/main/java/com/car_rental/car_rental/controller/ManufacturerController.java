@@ -6,11 +6,13 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.car_rental.car_rental.dto.ManufacturerDto;
 import com.car_rental.car_rental.mapper.ManufacturerMapper;
 import com.car_rental.car_rental.model.Manufacturer;
+import com.car_rental.car_rental.service.ImageUploadService;
 import com.car_rental.car_rental.service.ManufacturerService;
 
 import jakarta.validation.Valid;
@@ -22,6 +24,7 @@ import lombok.AllArgsConstructor;
 public class ManufacturerController {
   private final ManufacturerService manufacturerService;
   private final ManufacturerMapper manufacturerMapper;
+  private final ImageUploadService imageUploadService;
 
   @GetMapping
   public ResponseEntity<List<ManufacturerDto>> getAllManufacturers() {
@@ -70,5 +73,39 @@ public class ManufacturerController {
     }
     manufacturerService.deleteManufacturer(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @PostMapping("/{id}/upload-image")
+  public ResponseEntity<ManufacturerDto> uploadManufacturerImage(@PathVariable(name = "id") Long id, @RequestParam("file") MultipartFile file) {
+    Optional<Manufacturer> manufacturer = manufacturerService.getManufacturer(id);
+    if (manufacturer.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+
+    try {
+      String imageUrl = imageUploadService.uploadImage(file, "manufacturers");
+      manufacturer.get().setImage(imageUrl);
+      manufacturerService.saveManufacturer(manufacturer.get());
+      return ResponseEntity.ok(manufacturerMapper.toDto(manufacturer.get()));
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().build();
+    }
+  }
+
+  @DeleteMapping("/{id}/delete-image")
+  public ResponseEntity<ManufacturerDto> deleteManufacturerImage(@PathVariable(name = "id") Long id) {
+    Optional<Manufacturer> manufacturer = manufacturerService.getManufacturer(id);
+    if (manufacturer.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+    if (manufacturer.get().getImage() != null && !manufacturer.get().getImage().isEmpty()) {
+      boolean deleted = imageUploadService.deleteImage(manufacturer.get().getImage());
+      if (deleted) {
+        manufacturer.get().setImage(null);
+        manufacturerService.saveManufacturer(manufacturer.get());
+      }
+    }
+
+    return ResponseEntity.ok(manufacturerMapper.toDto(manufacturer.get()));
   }
 }
