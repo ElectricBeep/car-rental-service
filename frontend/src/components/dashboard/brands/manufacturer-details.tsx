@@ -20,7 +20,7 @@ export const ManufacturerDetails = ({ data }: ManufacturerDetailsProps) => {
         <div>
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} />
-            <h2 className="text-xl">Manufacturer details</h2>
+            <h2 className="text-xl">Manufacturer details (<span className="text-violet-500 font-semibold">{data.id}</span>)</h2>
           </div>
           <ManufacturerNameForm initialData={data} dataId={data.id} />
         </div>

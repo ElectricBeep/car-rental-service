@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import * as z from "zod";
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pencil } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 import { Manufacturer } from "@/types/api/models/Manufacturer";
 import {
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { getApiClient } from "@/lib/api";
 
 interface ManufacturerNameFormProps {
   initialData: Manufacturer;
@@ -37,6 +38,7 @@ const ManufacturerNameForm = ({
 }: ManufacturerNameFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
+  const session = useSession();
 
   const toggleEdit = () => {
     setIsEditing((current) => !current);
@@ -53,12 +55,18 @@ const ManufacturerNameForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // await axios.patch(`/api/exercises/${exerciseId}`, values);
-      toast("Manufacturer name was updated successfully.");
+      const apiClient = await getApiClient(session.data);
+      const updatedData: Manufacturer = { ...initialData, name: values.name };
+      const response = await apiClient.manufacturers.updateManufacturer(updatedData);
 
-      toggleEdit();
-
-      router.refresh();
+      if (response && "id" in response) {
+        router.refresh();
+        toast("Manufacturer name was updated successfully.");
+        toggleEdit();
+        router.refresh();
+      } else {
+        toast("Failed to update manufacturer.");
+      }
     } catch (error) {
       console.log(error);
       toast("Something went wrong!");

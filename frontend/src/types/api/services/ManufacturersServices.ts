@@ -30,6 +30,15 @@ export class ManufacturersService {
     })
   }
 
+  public updateManufacturer(requestBody: Manufacturer): CancelablePromise<Manufacturer> {
+    return this.httpRequest.request({
+      method: 'PUT',
+      url: `/manufacturers/${requestBody.id}`,
+      body: requestBody,
+      mediaType: 'application/json',
+    })
+  }
+
   public deleteManufacturer(id: number | string) {
     return this.httpRequest.request({
       method: 'DELETE',
