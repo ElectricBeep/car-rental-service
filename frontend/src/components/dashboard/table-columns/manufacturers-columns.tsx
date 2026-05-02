@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 
-import { ArrowUpDown, ChevronRight, Fingerprint } from "lucide-react";
+import { ArrowUpDown, ChevronRight, Fingerprint, MoreHorizontalIcon } from "lucide-react";
 import { Manufacturer } from "@/types/api/models/Manufacturer";
 import { formatDate } from "@/lib/utils";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ManufacturerActions } from "../brands/manufacturer-actions";
 
 export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
   {
@@ -21,7 +23,7 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
           alt={row.original.name}
           height={40}
           width={40}
-          className="rounded-full object-cover h-10 w-10"
+          className="rounded-full object-cover h-auto w-auto"
         />
       );
     },
@@ -96,11 +98,25 @@ export const manufacturersColumns: ColumnDef<Manufacturer>[] = [
     cell: ({ row }) => {
       const { id } = row.original;
       return (
-        <Link href={`/admin/brands/${id}`}>
-          <div className="px-2 py-1 dark:hover:bg-gray-800 hover:bg-gray-200 rounded-md transition w-full flex justify-end">
-            <ChevronRight className="text-violet-500" />
-          </div>
-        </Link>
+        <div className="flex justify-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="size-8">
+                <MoreHorizontalIcon />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem asChild>
+                <Link href={`/admin/brands/${id}`}>
+                  Edit
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <ManufacturerActions dataId={row.original.id} isTable={true} />
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       );
     },
   },

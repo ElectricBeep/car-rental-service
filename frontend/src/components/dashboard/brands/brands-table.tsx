@@ -106,8 +106,7 @@ export const BrandsTable = ({ columns, data }: BrandsTableProps) => {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+            {table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}>
@@ -124,15 +123,7 @@ export const BrandsTable = ({ columns, data }: BrandsTableProps) => {
                   ))}
                 </TableRow>
               ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="text-muted-foreground text-center">
-                  No Body Parts found.
-                </TableCell>
-              </TableRow>
-            )}
+            }
           </TableBody>
         </Table>
         <div className="flex items-center justify-between w-full mt-4">
