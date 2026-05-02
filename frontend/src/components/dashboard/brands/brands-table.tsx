@@ -23,9 +23,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useModal } from "@/hooks/use-modal";
-import { Plus } from "lucide-react";
 import { Manufacturer } from "@/types/api/models/Manufacturer";
+import { ManufacturersActions } from "./manufacturers-actions";
 
 interface BrandsTableProps {
   columns: ColumnDef<Manufacturer>[];
@@ -38,7 +37,6 @@ export const BrandsTable = ({ columns, data }: BrandsTableProps) => {
     []
   );
 
-  const { onOpen } = useModal();
 
   const table = useReactTable({
     data,
@@ -60,15 +58,7 @@ export const BrandsTable = ({ columns, data }: BrandsTableProps) => {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl text-violet-500 font-bold">Manufacturers</h1>
         <div className="flex items-center gap-x-2">
-          <Button
-            className="text-white bg-violet-500 hover:bg-violet-400 transition"
-            onClick={() => {
-              onOpen("createManufacturer");
-            }}
-          >
-            <Plus className="size-4 mr-2" />
-            Create Manufacturer
-          </Button>
+          <ManufacturersActions />
         </div>
       </div>
       <div className="flex flex-col md:flex-row items-center py-4 gap-2 mt-6">
