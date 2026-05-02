@@ -25,7 +25,7 @@ const ConfirmDialog = ({ children, onConfirm }: ConfirmDialogProps) => {
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            className="bg-destructive hover:bg-destructive/80 text-white"
+            className="bg-destructive hover:bg-destructive/80"
             onClick={onConfirm}
           >
             Continue
